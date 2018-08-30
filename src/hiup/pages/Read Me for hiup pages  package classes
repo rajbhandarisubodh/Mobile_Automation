@@ -1,0 +1,55 @@
+This package contain automation of Hiup and used POM framework without using page factory
+apk Version start: v2.2
+
+Hiup.pages package contain all pages to be tested that are explained below:
+
+1. objectPath class: this class contains all mobile elements path
+
+2. hiupButtonPages class: this class contains all button located BY selector
+
+3. loginPages class: this class contain steps of user login test and if user is already loggedin, user will be
+logout and then login
+
+4. forgetPages class: this class test forget password. It extended loginPage class to use same functions
+
+5. signUp User pages
+ a. signUpUsingExcelPage class: this class test signUp of user positively. It uses approach of sign up without excel i.e direct data
+with excel that on the folder of Hiup_Automation project
+
+ b. signUpUsingExcelPage class: this class test signUp of user positively. It uses approach of sign up with excel 
+with excel that on the folder of Hiup_Automation project
+        P.S: manual1@test.co,....., manualN@test.co is used for creating user account with direct data
+            automate1@test.co,...., automateN@test.co is used for creating account through data from Hiup SignUp data.xls file locates at
+            ->E:\eclipse-java-oxygen-M5-NEW\Workspace-Training\Hiup_Automation\Excel_Files
+            All test used Password, AS IS i.e. test12345
+            
+6. allActivityPage and allactivity_Test class: test all the activity with reseted data by without user login 
+Note: its smoke test to test activity before proceding any test    
+
+7. ProfilePage: 10April, 2018 test profile of specific user by login out if any other is sign in then signin user (currently test10@hiup.com) and edit profile
+
+8. enterCodePage: test entre code with valid code
+
+9. Wallet
+
+
+
+
+1 Login
+2 Forgot password
+3 Signup
+4. SignUp using excel
+5. all activity without login
+6. profile
+7. EnterCode
+8. Wallet
+9. Training
+
+Remaining: 3 july, 2018
+10. My Training
+11. Add wallet
+
+
+
+
+

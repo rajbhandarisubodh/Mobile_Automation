@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <test name="Test(failed)">
+    <classes>
+      <class name="hiup.test.forgetPassword_Test">
+        <methods>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- hiup.test.forgetPassword_Test -->
+      <class name="hiup.test.signUpUsingExcel_Test">
+        <methods>
+          <include name="userSignUp"/>
+          <include name="setUp"/>
+          <include name="loadSignUpScreen"/>
+        </methods>
+      </class> <!-- hiup.test.signUpUsingExcel_Test -->
+      <class name="hiup.test.allActivity_Test">
+        <methods>
+          <include name="testAllActivityWithoutLogin"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- hiup.test.allActivity_Test -->
+      <class name="hiup.test.profile_Test">
+        <methods>
+          <include name="tearDown"/>
+          <include name="profileMain"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- hiup.test.profile_Test -->
+      <class name="hiup.test.login_Test">
+        <methods>
+          <include name="tearDown"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- hiup.test.login_Test -->
+      <class name="hiup.test.signUp_Test">
+        <methods>
+          <include name="tearDown"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- hiup.test.signUp_Test -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

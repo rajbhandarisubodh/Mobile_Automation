@@ -1,0 +1,328 @@
+ Tips & Tricks:
+ 
+ #git Commands with steps to push
+Note: User must have installed git
+1.  Open project folder where you want to upload to github
+2.  Right click and open git bash
+3.  Run git init
+4.  Run git status – to check status of project
+5.  Run git add . to upload to local repository of git
+6.  Add githu account : git config –global user.email “email id”
+7.  Run commit before push. Run commit –m “message”
+8.  Link to github repo: git remote add origin <URL>
+9.  Run push -u origin master – to push on master
+ 
+  
+ 1. way to find appPackage and appActivity (follow this - http://www.automationtestinghub.com/apppackage-and-appactivity-name/ )
+
+     Using ‘mCurrentFocus’ or ‘mFocusedApp’ in Command Prompt
+     Step 1: Run adb devices to view device is connected. 
+     Step2: Run ‘adb shell’ command
+     Step 3: After running this command, open the app for which you want to find the appPackage and appActivity. 
+    Note: Please make sure that you open the app before going to the next step, because command in the next step would provide the details only for the app which is currently in focus.
+
+    Step 4: Now run this command: dumpsys window windows | grep -E ‘mCurrentFocus’
+    
+    Step 5: There is one more similar command that provides the appPackage and appActivity name. This command adds some additional details before and after the package name & activity name, but you can still try it out just to verify that the results from the above command are same. This command is
+    
+     dumpsys window windows | grep -E ‘mFocusedApp’ 
+
+
+2. How to use Ui Automator Viewer to inspect element (follow this tutorial for complete knowledge to locate element - http://toolsqa.com/mobile-automation/appium/findelement-and-findelements-commands/ 
+, webapp element: http://toolsqa.com/mobile-automation/appium/inspect-elements-of-mobile-web-application/ 
+And webView http://toolsqa.com/mobile-automation/appium/how-to-inspect-and-automate-webview-in-hybrid-app/ )
+  whereas Appium inspector http://www.automationtestinghub.com/appium-desktop-inspector-inspect-mobile-elements/ 
+  
+ 3. Scrollable (Veritcal and horizonal scroll)
+  
+    a. Using swipe method
+    
+    
+            public void verticalScrollUsingSwipe()  // using driver.swipe() method
+    {
+        Dimension dim =  driver.manage().window().getSize(); //get size of device
+        int height = dim.getHeight();  //device height
+        int width = dim.getWidth();     // device width
+        int x = width/2;                // x -axis remain constant for vertical scroll
+        
+        int startY = (int) (height*0.8);    // start position of y axis
+        int endY = (int) (height*0.20);     // end position of y axis 
+        
+        driver.swipe(x, startY, x, endY, 500);   //swipe method
+                
+    }
+    
+                   
+      b. Using TouchAction By Element
+                    
+                    public void scrollUsingTouchAction_ByElements(MobileElement startElement, MobileElement endElement) // using TouchAction
+//  {
+//      TouchAction actions = new TouchAction(driver);
+//      actions.press(startElement).waitAction().moveTo(endElement).release().perform();
+//      
+//  }
+//  
+//  public void element()
+//  {
+//      MobileElement el1 = (MobileElement) driver.findElementByAccessibilityId("Views");
+//      el1.click();
+//      
+//      MobileElement animation = driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Animation\"]");
+//              MobileElement gallery = driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Gallery\"]");
+//              scrollUsingTouchAction_ByElements(animation, gallery);
+//  }
+
+       c. Using TouchAction By Coordinate
+                
+                
+                public void scrollUsingTouchAction_ByCoordinate() //scrolling by using touch action using coordinate
+//  {
+//      MobileElement gallery = driver.findElementByXPath("//android.widget.TextView[@content-desc=\"Gallery\"]");
+//      org.openqa.selenium.Point point = gallery.getLocation(); //location of mobile element
+//      int startX = point.x;
+//      int endX = point.x;
+//      
+//      Dimension dim = driver.manage().window().getSize();
+//      int height = dim.height;
+//      int width = dim.width;
+//      
+//      int startY = (int) (height*0.8);
+//      int endY = (int) (height*0.2);
+//      
+//              TouchAction actions = new TouchAction(driver);
+//      actions.press(startX, startY).waitAction().moveTo(endX, endY).release().perform();
+//              
+//  }
+
+
+3. Inspect webelement of Hybrid app using chorme
+
+
+        Step 1: Connect device and open hybrid web view
+        step 2: open chrome and enter chrome://chrome-urls/
+        step 3: go to chrome://inspect
+        step 4: Device will be show then click inspect
+
+4. Context change from Native to webview using context handle
+
+
+/***
+public void webView() // Webview is redirected which is located at View>Webview
+    {
+        System.out.println("First Current Context : "+driver.getContext());
+        
+        System.out.println("Context Inspecting......");
+        switchContext("WEBVIEW"); //value passed to change webview if available
+        String webViewText = driver.findElementByXPath("//a[text()='Hello World! - 1']").getText();
+        System.out.println("Text on Web View: " +webViewText);
+    }
+
+    
+    public void switchContext(String context)
+    {
+        System.out.println("Before Switching: " +driver.getContext());
+        Set<String> con = driver.getContextHandles(); //inspect available context
+        for(String c : con)
+        {
+            System.out.println("Available Conntext:" +c);//Available context
+            if(c.contains(context))
+            {
+                driver.context(c); //switch context to Webview that is passed from above founction
+                break;
+            }
+        }
+        System.out.println("After Switching : " + driver.getContext());
+    }
+    
+**/
+
+
+
+5. Switch App (on below code current app is switched to sms app, system app by driver.startActivity("appPackage", "app Activity");
+
+
+ (follow tutorial 17 of Chirag ) 
+ public String getOTP()
+    {
+        //change app by driver.startActivity("appPackage", "app Activity");
+        driver.startActivity("com.android.messaging", "com.android.messaging.ui.conversationlist.ConversationListActivity");
+        String getOTPValue = driver.findElementById("com.android.messaging:id/conversation_snippet").getText().split(":")[1].trim();
+        return getOTPValue;
+    }
+    
+    
+ 6. Android key command for default enter supposed to select element form dropdown list
+    
+    //android key code method
+        driver.pressKeyCode(AndroidKeyCode.KEYCODE_PAGE_DOWN);
+        driver.pressKeyCode(AndroidKeyCode.KEYCODE_PAGE_DOWN);
+        driver.pressKeyCode(AndroidKeyCode.KEYCODE_ENTER);
+        Note: driver must be define using AndroidDriver i.e AndroidDriver<MobileElement> driver;
+        
+        
+ 7.  LongPress touch action supposed to delete sms from message
+ TouchAction ac = new TouchAction(driver);
+        MobileElement ele = driver.findElementById("com.android.messaging:id/conversation_snippet");
+        ac.longPress(ele).perform().release();// longpress perfomed
+        
+        
+   8.   Screenshot function (how to take screenshot, save file name with current date format)
+   /**
+       public void screenShot() throws IOException
+        {
+            getScreenshot(driver); //screenshot taken
+        }
+    
+     // function for screenshot
+    public void getScreenshot(AppiumDriver<MobileElement> d) throws IOException
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss"); // date format defined to save on screenshot name
+        Date date = new Date(); // date defined
+        String fileName = sdf.format(date); // renamed file name to date
+        File des = d.getScreenshotAs(OutputType.FILE); // screenshot
+        //save screenshot to folder
+        FileUtils.copyFile(des, new File(System.getProperty("user.dir")+ "//Screenshot//" +fileName+".png"));
+        System.out.println("Screenshot captured");
+    }
+    
+    */
+    
+    
+    9. Device orientation method
+    
+    //Screenshot rotation method
+//      public void screenRotation() throws InterruptedException //Device orientation method
+//      {
+//          ScreenOrientation currentOrientation = driver.getOrientation(); // get current orientation
+//          System.out.println("Current orientation: " + currentOrientation);
+//      
+//          driver.rotate(ScreenOrientation.LANDSCAPE); // rotate to landscape mode
+//          Thread.sleep(2000);
+//          
+//          currentOrientation = driver.getOrientation();
+//          System.out.println("Current orientation: " + currentOrientation);
+//          
+//          driver.rotate(ScreenOrientation.PORTRAIT); // rotate to portrait mode
+//          currentOrientation = driver.getOrientation();
+//          
+//          System.out.println("Current orientation: " + currentOrientation);
+//          Thread.sleep(2000);
+//      }
+//     
+
+10  Tap functionality
+//  // Tap functionality to top on element using multiple fingers
+//  public void tapAction()
+//  {
+//      // tap method using Appium driver
+//      MobileElement view = driver.findElementByAccessibilityId("Views");
+//      driver.tap(1, view, 500);
+//      
+//      // tap method using Touch Action Class
+//      MobileElement autoComplete = driver.findElementByAccessibilityId("Auto Complete");
+//      new TouchAction(driver).tap(autoComplete).perform().release();
+//  }
+//  
+
+11.   To access static variable from another class B from class A
+
+For eg: 
+public class B (){
+
+static String text = “Hello world” // variable should be static
+}
+
+// on class A
+
+import package.b; // package is package name
+
+public class A(){
+
+static B bObj;
+
+public static void setUp() { // function should be static
+System.out.println(“Output”+ bObj.text);
+}
+
+public void static main(String[] args)
+{
+    setup();
+}
+}
+
+
+
+12. To grant permission on apk use autoGrandPermission capabilities.
+For eg: cap.setCapability("autoGrantPermissions","true");
+
+13. Read and write excel xls file(Note: Apache Poi library should me imported before  proceeding)
+
+
+
+
+try {
+            // Specify the path of file
+        File src = new File("E:\\eclipse-java-oxygen-M5-NEW\\Text_Excel_Files\\First test practice.xlsx");
+        
+        
+         // load file
+        FileInputStream fis = new FileInputStream(src);
+        
+        // Load workbook
+        XSSFWorkbook wb = new XSSFWorkbook(fis);
+        
+        // Load sheet- Here we are loading first sheetonly
+        XSSFSheet sh1 = wb.getSheetAt(0);
+        
+        
+        String cell = sh1.getRow(0).getCell(0).getStringCellValue();
+        
+        //to read
+        
+        // getRow() specify which row we want to read.
+         
+          // and getCell() specify which column to read.
+          // getStringCellValue() specify that we are reading String data.
+        
+    
+        System.out.println("Email content" +cell);
+        System.out.println(sh1.getRow(0).getCell(1).getStringCellValue());
+        
+        System.out.println("File read done");
+        //to write
+        // here createCell will create column
+         
+        // and setCellvalue will set the value
+        
+       
+        // here we need to specify where you want to save file
+            for(i=1;i<=sheet.getLastRowNum(); i++) {
+            
+            for(int j=1; j<=sheet.getLastRowNum(); j++) {
+                
+                String result = sheet.getRow(j).getCell(8).getStringCellValue();
+            
+                if(result.equals("PASSED"))
+                {
+                    System.out.println("UserEmail:"+i+ " Exist, Retrying next user on list"+'\n');
+                    i++;
+                }
+                else {
+                    break;
+                }
+                
+            }   
+        
+        FileOutputStream fos = new FileOutputStream(new File("E:\\\\eclipse-java-oxygen-M5-NEW\\\\Text_Excel_Files\\\\test.xlsx"));
+         sh1.getRow(0).createCell(3).setCellValue("CC Mobile number");
+        sh1.getRow(0).createCell(4).setCellValue("Mobile Number");
+        
+        
+        wb.write(fos)
+        System.out.println("File write done");
+        }
+        
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
