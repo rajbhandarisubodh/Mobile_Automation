@@ -7,6 +7,3 @@ Automation of Hiup version 2.1.4(61)
   >appium version 1., appium-server 1.65
 
 Updated date: 24 Jan, 2018
-Location : E:\eclipse-java-oxygen-M5-NEW\Workspace-Training\Hiup_Automation
- 
- This is practice of automation for Hiup. 
